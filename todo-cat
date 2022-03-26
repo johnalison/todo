@@ -1,0 +1,15 @@
+#! /usr/bin/env bash
+
+set -u
+set -e
+set -o pipefail
+
+todos="$@"
+
+[ ! -z "$todos" ] || exit 110
+for todo in $todos
+do
+	[ -f "$todo" ] || exit 110
+done
+
+exec awk '{print $0,"(",FILENAME,FNR,")"}' $todos | sort

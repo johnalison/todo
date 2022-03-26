@@ -1,0 +1,17 @@
+#! /usr/bin/env bash
+
+set -u
+set -e
+set -o pipefail
+
+
+todo=${1:-}
+item=${2:-}
+priority=${3:-}
+
+[ ! -z "$todo" ] || exit 110
+[ -f "$todo" ] || exit 110
+
+
+awk -v target=$item -v priority=$priority  -f todo-reprio.awk $todo > $todo.temp
+mv $todo.temp $todo

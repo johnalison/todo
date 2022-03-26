@@ -1,0 +1,16 @@
+#! /usr/bin/env bash
+
+set -u
+set -e
+set -o pipefail
+
+todo=${1:-}
+priority=${2:-}
+description=${@:3}
+
+[ ! -z "$todo" ] || exit 110
+[ -f "$todo" ] || exit 110
+
+exec cat <<EOF >>"$todo"
+$priority $description
+EOF
