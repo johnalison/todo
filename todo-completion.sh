@@ -14,16 +14,25 @@ _todo_completions()
 
 _todo_completions_itemNums()
 {
-    if [ "${#COMP_WORDS[@]}" != "2" ]; then
-	echo 
-	todo-cat "${COMP_WORDS[1]}"
-	echo
-	#complete -W "$(todo-lineNums "${COMP_WORDS[1]}")" "${COMP_WORDS[0]}" "${COMP_WORDS[1]}"
-	#COMPREPLY=($(compgen -W "$(todo-lineNums "${COMP_WORDS[1]}")" "${COMP_WORDS[1]}"))
-	return
-    fi
-    
-    COMPREPLY=($(compgen -W "$(ls |grep -v .done|grep -v todo| grep -v README)" "${COMP_WORDS[1]}"))
+    local cur prev
+
+    cur=${COMP_WORDS[COMP_CWORD]}
+    prev=${COMP_WORDS[COMP_CWORD-1]}
+
+    case ${COMP_CWORD} in
+	1)
+	    COMPREPLY=($(compgen -W "$(ls |grep -v .done|grep -v todo| grep -v README)" -- ${cur}))
+            ;;
+        2)
+	    echo 
+	    todo-cat ${prev}
+	    echo
+	    COMPREPLY=($(compgen -W "$(todo-lineNums "${prev}")" -- ${cur}))
+	    ;;
+        *)
+            COMPREPLY=(${cur})
+            ;;
+    esac
 
 }
 
