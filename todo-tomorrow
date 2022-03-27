@@ -1,0 +1,3 @@
+#! /usr/bin/env bash
+clear
+todo | grep -E '^x?1'
