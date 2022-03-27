@@ -11,4 +11,4 @@ do
     [ -f "$todo" ] || exit 110
 done
 
-exec awk '{print $0,"(",FILENAME,FNR,")"}' $todos | sort
+exec awk '{print FNR}' $todos | sort

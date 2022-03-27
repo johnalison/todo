@@ -13,5 +13,6 @@ description=${@:3}
 [ -f "$todo" ] || exit 110
 
 
+#echo awk -v target=$item  -v description="${description}" -f todo-update.awk $todo
 awk -v target=$item  -v description="${description}" -f todo-update.awk $todo > $todo.temp
 mv $todo.temp $todo
