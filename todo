@@ -1,3 +1,10 @@
 #! /usr/bin/env bash
-clear
-todo-cat "$(ls |grep -v .done|grep -v todo| grep -v README)"
+#clear
+
+if [ "$#" = 0 ]; then
+    todo-cat "$(ls |grep -v .done|grep -v todo| grep -v README)"
+else
+    todo-cat "$@"
+fi
+
+

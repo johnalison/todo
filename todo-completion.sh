@@ -37,7 +37,8 @@ _todo_completions_itemNums()
 }
 
 
-complete -F _todo_completions todo-add
+complete -F _todo_completions todo
+complete -F _todo_completions todo-cat
 complete -F _todo_completions todo-cat
 
 complete -F _todo_completions_itemNums todo-done
